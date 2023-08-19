@@ -3,6 +3,10 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+class ListNode:
+    def __init__(self, value):
+        self.val = value
+        self.next = None
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         head = ListNode(0, None)
