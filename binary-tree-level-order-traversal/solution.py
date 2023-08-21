@@ -11,22 +11,29 @@ class TreeNode:
 
 class Solution:
 
-
-
-
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         s = [root]
         res = []
-
         while s:
             temp = s
-            # append vals to
-
-
+            if len(temp):
+                # append vals to res
+                res.append(self.vals(temp))
+            temp = []
+            for item in s:
+                if item:
+                    temp.append(item.left)
+                    temp.append(item.right)
+            s = temp
         return res
 
 
-
+    def vals(self, l: List[TreeNode]):
+        res = []
+        for item in l:
+            if item:
+                res.append(item.val)
+        return res
 
 if __name__ == '__main__':
     s = Solution()
