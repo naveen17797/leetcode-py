@@ -12,24 +12,20 @@ class Solution:
 
         while window_end < LEN:
             char = s2[window_end]
+            curr = s2[window_start:window_end]
+            # decrement the frequency
             target_frequency_map[char] = target_frequency_map.get(char, 0) - 1
-
-            if target_frequency_map[char] >= 0:
-                required_characters -= 1
-
-            if required_characters <= 0:
-                return True
 
             if target_frequency_map[char] < 0:
                 # move the starting window to end
-                while target_frequency_map[char] == 0:
-                    window_start += 1
+                while target_frequency_map[char] != 0:
                     window_start_char = s2[window_start]
+                    window_start += 1
                     target_frequency_map[window_start_char] += 1
-                    if target_frequency_map[window_start_char] > 0:
-                        required_characters += 1
 
 
+            if window_end - window_start + 1 == target_len:
+                return True
             window_end += 1
 
         return False
