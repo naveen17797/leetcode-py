@@ -9,6 +9,7 @@ class ListNode:
 
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+
         # this node helps to find the node before our target node
         # without this we will land at the target node, where we cant perform removal
         dummy = ListNode(0, head)
