@@ -13,7 +13,7 @@ class Solution:
             diff = p1 - p2
             if diff:
                 heapq.heappush(stones, -diff)
-
+        stones.append(0)
         return -stones[0]
 
 if __name__ == '__main__':
