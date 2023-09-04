@@ -2,25 +2,33 @@ from typing import List
 
 
 class Solution:
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         result = []
+        candidates.sort()
         LEN = len(candidates)
-        def dfs(i, total, curr):
+
+
+        def dfs(curr, start_from, total):
 
             if total == target:
                 result.append(list(curr))
                 return
 
-            if i >= LEN or total >= target:
+            if total >= target:
                 return
 
-            curr.append(candidates[i])
-            dfs(i, total + candidates[i], curr)
-            curr.pop()
-            dfs(i+1, total, curr)
-        dfs(0, 0, [])
-        return  result
+            prev = -1
+            for i in range(start_from, LEN):
+                if candidates[i] == prev:
+                    continue # skip duplicates
+                prev = candidates[i]
+                curr.append(candidates[i])
+                dfs(curr, i + 1, total + candidates[i])
+                curr.pop()
 
+
+        dfs([], 0, 0)
+        return  result
 
 
 if __name__ == '__main__':
