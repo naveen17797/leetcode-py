@@ -8,7 +8,7 @@ class Solution:
         for num in nums:
             cumulative_sum += num
             if cumulative_sum - k in prefix_map:
-                count += prefix_map.get(cumulative_sum, 0)
+                count += prefix_map.get(cumulative_sum - k, 0)
             prefix_map[cumulative_sum] = prefix_map.get(cumulative_sum, 0) + 1
         return count
 
