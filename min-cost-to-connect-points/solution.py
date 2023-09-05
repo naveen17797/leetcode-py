@@ -12,6 +12,7 @@ class Solution:
             if current_node not in to_visit: continue
             min_cost += current_cost
             to_visit.remove(current_node)
+            priority_queue = []
             if len(to_visit) == 0: break
             for node in to_visit:
                 distance = abs(node[0] - current_node[0]) + abs(node[1] - current_node[1])
@@ -21,3 +22,5 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
+    res = s.minCostConnectPoints([[3,12],[-2,5],[-4,1]])
+    print(res)
