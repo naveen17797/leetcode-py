@@ -3,31 +3,26 @@ from typing import List
 
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
-        pac, atl = set(), set()
         ROWS, COLS = len(heights), len(heights[0])
+        pacific_ocean_cells, atlantic_ocean_cells = set(), set()
 
-        def dfs(r, c, visited, prev_height):
-            if (r,c) in visited or r < 0 or r == ROWS or c < 0 or c == COLS or heights[r][c] < prev_height:
+        def dfs(r, c, prev_val, acc):
+            if r < 0 or r >= ROWS or c < 0 or c >= COLS or (r, c) in acc or heights[r][c] < prev_val:
                 return
-            visited.add((r,c))
-            # search adjacent cells
-            dfs(r-1, c, visited, heights[r][c])
-            dfs(r+1, c, visited, heights[r][c])
-            dfs(r, c-1, visited, heights[r][c])
-            dfs(r, c+1, visited, heights[r][c])
-
-        # we approach from top and bottom
-        for c in range(COLS):
-            dfs(0, c, pac, heights[0][c])
-            dfs(ROWS- 1, c, atl, heights[ROWS-1][c])
-
-        #now we approach from left to right
-        for r in range(ROWS):
-            dfs(r, 0, pac, heights[r][0])
-            dfs(r, COLS-1, atl, heights[r][COLS-1])
-
-        return pac & atl
+            acc.add((r, c))
+            val = heights[r][c]
+            dfs(r + 1, c, val, acc)
+            dfs(r, c + 1, val, acc)
+            dfs(r - 1, c, val, acc)
+            dfs(r, c - 1, val, acc)
 
 
-if __name__ == '__main__':
-    s = Solution()
+        for i in range(ROWS):
+            dfs(i, 0, -1, pacific_ocean_cells)
+            dfs(i, COLS-1, -1, atlantic_ocean_cells)
+
+        for j in range(COLS):
+            dfs(0, j, -1, pacific_ocean_cells)
+            dfs(ROWS-1, j, -1, atlantic_ocean_cells)
+
+        return pacific_ocean_cells & atlantic_ocean_cells
